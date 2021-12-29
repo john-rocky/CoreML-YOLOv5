@@ -16,6 +16,7 @@
 		737BBD13277A47CF007A38F3 /* CoreML_YOLOv5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737BBD12277A47CF007A38F3 /* CoreML_YOLOv5Tests.swift */; };
 		737BBD1D277A47CF007A38F3 /* CoreML_YOLOv5UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737BBD1C277A47CF007A38F3 /* CoreML_YOLOv5UITests.swift */; };
 		737BBD1F277A47CF007A38F3 /* CoreML_YOLOv5UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737BBD1E277A47CF007A38F3 /* CoreML_YOLOv5UITestsLaunchTests.swift */; };
+		737BBD30277BDA83007A38F3 /* yolov5s.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 737BBD2F277BDA82007A38F3 /* yolov5s.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		737BBD18277A47CF007A38F3 /* CoreML-YOLOv5UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoreML-YOLOv5UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		737BBD1C277A47CF007A38F3 /* CoreML_YOLOv5UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreML_YOLOv5UITests.swift; sourceTree = "<group>"; };
 		737BBD1E277A47CF007A38F3 /* CoreML_YOLOv5UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreML_YOLOv5UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		737BBD2F277BDA82007A38F3 /* yolov5s.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = yolov5s.mlmodel; path = ../../yolov5s.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				737BBCFB277A47CA007A38F3 /* AppDelegate.swift */,
 				737BBCFD277A47CA007A38F3 /* SceneDelegate.swift */,
 				737BBCFF277A47CA007A38F3 /* ViewController.swift */,
+				737BBD2F277BDA82007A38F3 /* yolov5s.mlmodel */,
 				737BBD01277A47CA007A38F3 /* Main.storyboard */,
 				737BBD04277A47CF007A38F3 /* Assets.xcassets */,
 				737BBD06277A47CF007A38F3 /* LaunchScreen.storyboard */,
@@ -261,6 +264,7 @@
 				737BBD00277A47CA007A38F3 /* ViewController.swift in Sources */,
 				737BBCFC277A47CA007A38F3 /* AppDelegate.swift in Sources */,
 				737BBCFE277A47CA007A38F3 /* SceneDelegate.swift in Sources */,
+				737BBD30277BDA83007A38F3 /* yolov5s.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +451,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,6 +480,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
