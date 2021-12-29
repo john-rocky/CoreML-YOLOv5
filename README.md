@@ -1,7 +1,7 @@
 # CoreML-YOLOv5
 A sample project how to use YOLOv5 in iOS
 
-<img src="https://user-images.githubusercontent.com/23278992/147620103-ef113d22-eb7a-4399-a9fa-58970e3896b1.PNG", width=300>
+<img src="https://user-images.githubusercontent.com/23278992/147620103-ef113d22-eb7a-4399-a9fa-58970e3896b1.PNG" width=300>
 
 # How to use
 
