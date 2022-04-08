@@ -18,6 +18,8 @@
 		737BBD1F277A47CF007A38F3 /* CoreML_YOLOv5UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737BBD1E277A47CF007A38F3 /* CoreML_YOLOv5UITestsLaunchTests.swift */; };
 		737BBD3F277BF66C007A38F3 /* yolov5s.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = 737BBD3D277BF66B007A38F3 /* yolov5s.mlmodelc */; };
 		737BBD40277BF66C007A38F3 /* yolov5s.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737BBD3E277BF66C007A38F3 /* yolov5s.swift */; };
+		739E902E2800F54800347407 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E902D2800F54800347407 /* ImageUtils.swift */; };
+		739E90302800F62200347407 /* Detection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E902F2800F62200347407 /* Detection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		737BBD1E277A47CF007A38F3 /* CoreML_YOLOv5UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreML_YOLOv5UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		737BBD3D277BF66B007A38F3 /* yolov5s.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = yolov5s.mlmodelc; sourceTree = "<group>"; };
 		737BBD3E277BF66C007A38F3 /* yolov5s.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = yolov5s.swift; sourceTree = "<group>"; };
+		739E902D2800F54800347407 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
+		739E902F2800F62200347407 /* Detection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				737BBCFB277A47CA007A38F3 /* AppDelegate.swift */,
 				737BBCFD277A47CA007A38F3 /* SceneDelegate.swift */,
 				737BBCFF277A47CA007A38F3 /* ViewController.swift */,
+				739E902F2800F62200347407 /* Detection.swift */,
+				739E902D2800F54800347407 /* ImageUtils.swift */,
 				737BBD3D277BF66B007A38F3 /* yolov5s.mlmodelc */,
 				737BBD3E277BF66C007A38F3 /* yolov5s.swift */,
 				737BBD01277A47CA007A38F3 /* Main.storyboard */,
@@ -266,8 +272,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				737BBD00277A47CA007A38F3 /* ViewController.swift in Sources */,
+				739E90302800F62200347407 /* Detection.swift in Sources */,
 				737BBD40277BF66C007A38F3 /* yolov5s.swift in Sources */,
 				737BBCFC277A47CA007A38F3 /* AppDelegate.swift in Sources */,
+				739E902E2800F54800347407 /* ImageUtils.swift in Sources */,
 				737BBCFE277A47CA007A38F3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,9 +8,12 @@
 import UIKit
 import PhotosUI
 import Vision
+import AVKit
 
 class ViewController: UIViewController, PHPickerViewControllerDelegate {
 
+    @IBOutlet weak var messageLabel: UILabel!
+    
     lazy var coreMLRequest:VNCoreMLRequest? = {
         do {
             let model = try yolov5s(configuration: MLModelConfiguration()).model
@@ -24,6 +27,31 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate {
         }
     }()
     
+    let classLabels = ["person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat", "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake", "chair", "couch", "potted plant", "bed", "dining table", "toilet", "tv", "laptop", "mouse", "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush"]
+    
+    let colorSet:[UIColor] = {
+        var colorSet:[UIColor] = []
+
+        for _ in 0...80 {
+            let color = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)
+            colorSet.append(color)
+        }
+        
+        return colorSet
+    }()
+    
+    var ciContext = CIContext()
+    
+    enum MediaMode {
+        case photo
+        case video
+    }
+    
+    var mediaMode:MediaMode = .photo
+
+    var initializeTimer:Timer?
+    var frame = 0
+
     @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
@@ -31,51 +59,68 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate {
         presentPhPicker()
     }
     
-    func detect(image:UIImage) {
-        guard let coreMLRequest = coreMLRequest else {fatalError("Model initialization failed.")}
-        guard let ciImage = CIImage(image: image) else {fatalError("Image failed.")}
-        let handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
-
-        do {
-            try handler.perform([coreMLRequest])
-            guard let detectResults = coreMLRequest.results as? [VNDetectedObjectObservation] else { return }
-            var detections:[Detection] = []
-            for detectResult in detectResults {
-                let flippedBox = CGRect(x: detectResult.boundingBox.minX, y: 1 - detectResult.boundingBox.maxY, width: detectResult.boundingBox.width, height: detectResult.boundingBox.height)
-                let box = VNImageRectForNormalizedRect(flippedBox, Int(image.size.width), Int(image.size.height))
-                print(box)
-                let confidence = detectResult.confidence
-                var label:String?
-                if let recognizedResult = detectResult as? VNRecognizedObjectObservation {
-                    label = recognizedResult.labels.first?.identifier
-                }
-                let detection = Detection(box: box, confidence: confidence, label: label)
-                detections.append(detection)
-            }
-            DispatchQueue.main.async { [weak self] in
-                guard let safeSelf = self else { return }
-                let newImage = safeSelf.drawDetectionsOnImage(detections, image)
-                safeSelf.imageView.image = newImage
-            }
-        } catch let error {
-            print(error)
-        }
-    }
-    
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
-        guard let result = results.first else { return }
-        if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
-            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error  in
-                if let image = image as? UIImage,  let safeSelf = self {
-                    let correctOrientImage = safeSelf.getCorrectOrientationUIImage(uiImage: image)
-                    safeSelf.detect(image: correctOrientImage)
+        messageLabel.isHidden = true
+        switch mediaMode {
+        case .photo:
+            guard let result = results.first else { return }
+            if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error  in
+                    if let image = image as? UIImage,  let safeSelf = self {
+                        
+                        let correctOrientImage = safeSelf.getCorrectOrientationUIImage(uiImage: image) // iPhoneのカメラで撮った画像は回転している場合があるので画像の向きに応じて補正
+                        
+                        // モデルの初期化が終わっているか確認して検出実行
+                        if self?.coreMLRequest != nil {
+                            safeSelf.detect(image: correctOrientImage)
+                        } else {
+                            self?.initializeTimer = Timer(timeInterval: 0.5, repeats: true, block: { timer in
+                                if self?.coreMLRequest != nil {
+                                    safeSelf.detect(image: correctOrientImage)
+                                    timer.invalidate()
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+            
+        case .video:
+            guard let result = results.first else { return }
+            guard let typeIdentifier = result.itemProvider.registeredTypeIdentifiers.first else { return }
+            if result.itemProvider.hasItemConformingToTypeIdentifier(typeIdentifier) {
+                result.itemProvider.loadFileRepresentation(forTypeIdentifier: typeIdentifier) { [weak self] (url, error) in
+                    if let error = error { print("*** error: \(error)") }
+                    let start = Date()
+                    DispatchQueue.main.async {
+                        self?.imageView.image = nil
+                    }
+                    if let url = url as? URL {
+                        result.itemProvider.loadItem(forTypeIdentifier: typeIdentifier, options: nil) { (url, error) in
+                            let procceessed = self?.applyProcessingOnVideo(videoURL: url as! URL) { ciImage in
+                                let visualized = self?.detectPartsVisualizing(ciImage: ciImage)
+                                return visualized
+                            } _: { err, processedVideoURL in
+                                let end = Date()
+                                let diff = end.timeIntervalSince(start)
+                                print(diff)
+                                let player = AVPlayer(url: processedVideoURL!)
+                                DispatchQueue.main.async {
+                                    self?.messageLabel.isHidden = true
+                                    let controller = AVPlayerViewController()
+                                    controller.player = player
+                                    self?.present(controller, animated: true) {
+                                        player.play()
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-    
-    
     
     @IBAction func selectImageButtonTapped(_ sender: UIButton) {
         presentPhPicker()
@@ -99,12 +144,29 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate {
     }
     
     func presentPhPicker(){
-        var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 1
-        configuration.filter = .images
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        present(picker, animated: true)
+        let alert = UIAlertController(title: "Select Media", message: "", preferredStyle: .actionSheet)
+        let imageAction = UIAlertAction(title: "Image", style: .default) { action in
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .images
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self.mediaMode = .photo
+            self.present(picker, animated: true)
+        }
+        
+        let videoAction = UIAlertAction(title: "Video", style: .default) { action in
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .videos
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self.mediaMode = .video
+            self.present(picker, animated: true)
+        }
+        alert.addAction(imageAction)
+        alert.addAction(videoAction)
+        self.present(alert, animated: true)
     }
     
     func getCorrectOrientationUIImage(uiImage:UIImage) -> UIImage {
@@ -125,48 +187,11 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate {
         }
         return newImage
     }
-    
-    private func drawDetectionsOnImage(_ detections: [Detection], _ image: UIImage) -> UIImage? {
-        let imageSize = image.size
-        let scale: CGFloat = 0.0
-        UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
-
-        image.draw(at: CGPoint.zero)
-        let ctx = UIGraphicsGetCurrentContext()
-        var rects:[CGRect] = []
-        for detection in detections {
-            rects.append(detection.box)
-            if let labelText = detection.label {
-            let text = "\(labelText) : \(round(detection.confidence*100))"
-                let textRect  = CGRect(x: detection.box.minX + imageSize.width * 0.01, y: detection.box.minY + imageSize.width * 0.01, width: detection.box.width, height: detection.box.height)
-                    
-            let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-                    
-            let textFontAttributes = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: textRect.width * 0.1, weight: .bold),
-                NSAttributedString.Key.foregroundColor: UIColor.red,
-                NSAttributedString.Key.paragraphStyle: textStyle
-            ]
-                    
-            text.draw(in: textRect, withAttributes: textFontAttributes)
-            }
-        }
-        ctx?.addRects(rects)
-        ctx?.setStrokeColor(UIColor.red.cgColor)
-        ctx?.setLineWidth(9.0)
-        ctx?.strokePath()
-
-        guard let drawnImage = UIGraphicsGetImageFromCurrentImageContext() else {
-            fatalError()
-        }
-
-        UIGraphicsEndImageContext()
-        return drawnImage
-    }
 }
 
 struct Detection {
     let box:CGRect
     let confidence:Float
     let label:String?
+    let color:UIColor
 }

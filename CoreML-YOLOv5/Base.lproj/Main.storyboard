@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,12 +35,19 @@
                                     <action selector="saveButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fGK-97-uNU"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TbO-UI-gPo">
+                                <rect key="frame" x="20" y="442.5" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Gol-Sb-ThZ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="29B-k2-MdN"/>
                             <constraint firstItem="Gol-Sb-ThZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5o2-hX-bAr"/>
+                            <constraint firstItem="TbO-UI-gPo" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="HTn-Sn-Vsd"/>
                             <constraint firstItem="Gol-Sb-ThZ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.8" id="N8l-2Y-LFN"/>
                             <constraint firstItem="g6O-ia-Ex3" firstAttribute="top" secondItem="Gol-Sb-ThZ" secondAttribute="bottom" id="PkL-fQ-ugu"/>
                             <constraint firstAttribute="bottom" secondItem="qNU-rD-zbv" secondAttribute="bottom" id="Ruf-D6-MPI"/>
@@ -49,12 +56,15 @@
                             <constraint firstItem="qNU-rD-zbv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aHd-az-opT"/>
                             <constraint firstItem="Gol-Sb-ThZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="efw-LC-LcH"/>
                             <constraint firstItem="qNU-rD-zbv" firstAttribute="top" secondItem="Gol-Sb-ThZ" secondAttribute="bottom" id="gCD-VW-ycu"/>
+                            <constraint firstItem="TbO-UI-gPo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="pV9-z9-42l"/>
                             <constraint firstItem="g6O-ia-Ex3" firstAttribute="leading" secondItem="qNU-rD-zbv" secondAttribute="trailing" id="s0B-PA-LML"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TbO-UI-gPo" secondAttribute="trailing" constant="20" id="xkb-IT-mGY"/>
                             <constraint firstItem="g6O-ia-Ex3" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="zYZ-YR-7MM"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="Gol-Sb-ThZ" id="ydP-4J-b6B"/>
+                        <outlet property="messageLabel" destination="TbO-UI-gPo" id="cV5-9R-Qme"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
