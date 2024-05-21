@@ -3,7 +3,7 @@
 //  CoreML-YOLOv5
 //
 //  Created by DAISUKE MAJIMA on 2021/12/28.
-//
+
 
 import UIKit
 import PhotosUI
