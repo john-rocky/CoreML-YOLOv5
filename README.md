@@ -1,4 +1,16 @@
 # CoreML-YOLOv5
+
+**YOLOv5 → Core ML → iPhone sample project. Real-time object detection at 25–40 FPS on iPhone 15 Pro Neural Engine.**
+
+By [Daisuke Majima](https://john-rocky.github.io) — formerly on the [Ultralytics](https://www.ultralytics.com/) YOLOv5/v8 mobile deployment team.
+
+📦 See also: [Yolov8-RealTime-iOS](https://github.com/john-rocky/Yolov8-RealTime-iOS) · [CoreML-Models](https://github.com/john-rocky/CoreML-Models) (1,749★).
+
+💼 **Open to Staff / Senior iOS / Mobile ML roles** — [john-rocky.github.io](https://john-rocky.github.io)
+
+---
+
+# CoreML-YOLOv5
 A sample project how to use YOLOv5 in iOS.
 
 You can run model on your image from photo library.
