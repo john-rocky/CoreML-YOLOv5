@@ -1,0 +1,16 @@
+{
+  "MLModelVersionStringKey" : "--",
+  "MLModelDescriptionKey" : "--",
+  "MLModelCreatorDefinedKey" : {
+    "com.apple.coreml.model.preview.type" : "objectDetector",
+    "com.apple.createml.training.started" : "2025-09-01T16:26:22Z",
+    "com.apple.createml.version" : "26.0.0",
+    "com.apple.createml.training.finished" : "2025-09-01T21:09:17Z",
+    "com.apple.createml.app.tag" : "175.4",
+    "iterations" : "31000",
+    "com.apple.createml.model.created" : "2025-09-01T21:09:17Z",
+    "com.apple.createml.app.version" : "6.2"
+  },
+  "MLModelAuthorKey" : "Pondd Air",
+  "MLModelLicenseKey" : "--"
+}

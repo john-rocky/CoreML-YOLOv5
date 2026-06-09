@@ -20,6 +20,10 @@
 		737BBD40277BF66C007A38F3 /* yolov5s.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737BBD3E277BF66C007A38F3 /* yolov5s.swift */; };
 		739E902E2800F54800347407 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E902D2800F54800347407 /* ImageUtils.swift */; };
 		739E90302800F62200347407 /* Detection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E902F2800F62200347407 /* Detection.swift */; };
+		C12910672E85414200FD323E /* golfballyolov8n.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = C12910662E85414200FD323E /* golfballyolov8n.mlpackage */; };
+		C15E0E872E66ACEC008C196E /* GolfBall2.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = C15E0E862E66ACEC008C196E /* GolfBall2.mlpackage */; };
+		C15E0E892E66B009008C196E /* Info 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = C15E0E882E66B009008C196E /* Info 2.plist */; };
+		C170D1492E6911AA00B8416B /* GolfBall3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = C170D1482E6911AA00B8416B /* GolfBall3.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,10 @@
 		737BBD3E277BF66C007A38F3 /* yolov5s.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = yolov5s.swift; sourceTree = "<group>"; };
 		739E902D2800F54800347407 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		739E902F2800F62200347407 /* Detection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detection.swift; sourceTree = "<group>"; };
+		C12910662E85414200FD323E /* golfballyolov8n.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = golfballyolov8n.mlpackage; sourceTree = "<group>"; };
+		C15E0E862E66ACEC008C196E /* GolfBall2.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = GolfBall2.mlpackage; sourceTree = "<group>"; };
+		C15E0E882E66B009008C196E /* Info 2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info 2.plist"; sourceTree = "<group>"; };
+		C170D1482E6911AA00B8416B /* GolfBall3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GolfBall3.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +115,9 @@
 		737BBCFA277A47CA007A38F3 /* CoreML-YOLOv5 */ = {
 			isa = PBXGroup;
 			children = (
+				C12910662E85414200FD323E /* golfballyolov8n.mlpackage */,
+				C15E0E862E66ACEC008C196E /* GolfBall2.mlpackage */,
+				C170D1482E6911AA00B8416B /* GolfBall3.mlmodel */,
 				737BBCFB277A47CA007A38F3 /* AppDelegate.swift */,
 				737BBCFD277A47CA007A38F3 /* SceneDelegate.swift */,
 				737BBCFF277A47CA007A38F3 /* ViewController.swift */,
@@ -118,6 +129,7 @@
 				737BBD04277A47CF007A38F3 /* Assets.xcassets */,
 				737BBD06277A47CF007A38F3 /* LaunchScreen.storyboard */,
 				737BBD09277A47CF007A38F3 /* Info.plist */,
+				C15E0E882E66B009008C196E /* Info 2.plist */,
 			);
 			path = "CoreML-YOLOv5";
 			sourceTree = "<group>";
@@ -246,6 +258,7 @@
 				737BBD3F277BF66C007A38F3 /* yolov5s.mlmodelc in Resources */,
 				737BBD08277A47CF007A38F3 /* LaunchScreen.storyboard in Resources */,
 				737BBD05277A47CF007A38F3 /* Assets.xcassets in Resources */,
+				C15E0E892E66B009008C196E /* Info 2.plist in Resources */,
 				737BBD03277A47CA007A38F3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,9 +287,12 @@
 				737BBD00277A47CA007A38F3 /* ViewController.swift in Sources */,
 				739E90302800F62200347407 /* Detection.swift in Sources */,
 				737BBD40277BF66C007A38F3 /* yolov5s.swift in Sources */,
+				C12910672E85414200FD323E /* golfballyolov8n.mlpackage in Sources */,
+				C15E0E872E66ACEC008C196E /* GolfBall2.mlpackage in Sources */,
 				737BBCFC277A47CA007A38F3 /* AppDelegate.swift in Sources */,
 				739E902E2800F54800347407 /* ImageUtils.swift in Sources */,
 				737BBCFE277A47CA007A38F3 /* SceneDelegate.swift in Sources */,
+				C170D1492E6911AA00B8416B /* GolfBall3.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,7 +471,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MFN25KNUGJ;
+				DEVELOPMENT_TEAM = BG56D6X42L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "CoreML-YOLOv5/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -463,7 +479,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -484,7 +500,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MFN25KNUGJ;
+				DEVELOPMENT_TEAM = BG56D6X42L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "CoreML-YOLOv5/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -492,7 +508,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
