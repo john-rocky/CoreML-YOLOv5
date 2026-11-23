@@ -1,7 +1,10 @@
-
 import Foundation
 import UIKit
 import AVKit
+
+// Set this to the number of frames to skip between detections (e.g., 1 = every frame, 2 = every second frame, etc.)
+let detectionFrameStride = 1
+
 extension ViewController {
     
     func drawRectOnImage(_ detections: [Detection], _ image: CIImage) -> CIImage? {
@@ -52,14 +55,15 @@ extension ViewController {
         return CIImage(cgImage: newImage)
     }
     
-    func applyProcessingOnVideo(videoURL:URL, _ processingFunction: @escaping ((CIImage) -> CIImage?), _ completion: ((_ err: NSError?, _ processedVideoURL: URL?) -> Void)?) {
-        var frame:Int = 0
+    func applyProcessingOnVideo(videoURL: URL, _ processingFunction: @escaping ((CIImage) -> (CIImage, [Detection])?), _ completion: ((_ err: NSError?, _ processedVideoURL: URL?) -> Void)?) {
+        var frame: Int = 0
         var isFrameRotated = false
+        var accumulatedDetections: [Detection] = []
         let asset = AVURLAsset(url: videoURL)
         //        let duration = asset.duration.value
         //        let frameRate = asset.preferredRate
         let err: NSError = NSError.init(domain: "SemanticImage", code: 999, userInfo: [NSLocalizedDescriptionKey: "Video Processing Failed"])
-        guard let writingDestinationUrl: URL  = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("\(Date())" + ".mp4") else { print("nil"); return}
+        guard let writingDestinationUrl: URL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("\(Date())" + ".mp4") else { print("nil"); return }
         
         // setup
         
@@ -205,31 +209,35 @@ extension ViewController {
         writerVideoInput.requestMediaDataWhenReady(on: videoQueue) {
             while writerVideoInput.isReadyForMoreMediaData {
                 autoreleasepool {
-                    if let buffer = readerVideoOutput.copyNextSampleBuffer(),let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {
-                        if frame == 0 {
-                            frame += 1
+                    if let buffer = readerVideoOutput.copyNextSampleBuffer(), let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {
+                        if frame % detectionFrameStride == 0 {
                             var ciImage = CIImage(cvPixelBuffer: pixelBuffer)
                             if isFrameRotated {
                                 ciImage = ciImage.oriented(CGImagePropertyOrientation.right)
                             }
-                            guard let outCIImage = processingFunction(ciImage) else { print("Video Processing Failed") ; return }
-                            
+                            guard let (outCIImage, currentDetections) = processingFunction(ciImage) else {
+                                print("Video Processing Failed")
+                                return
+                            }
+                            // Simple deduplication to avoid duplicates in accumulatedDetections
+                            for detection in currentDetections {
+                                if !accumulatedDetections.contains(where: {
+                                    $0.label == detection.label && $0.box == detection.box
+                                }) {
+                                    accumulatedDetections.append(detection)
+                                }
+                            }
+                            guard let drawnImage = self.drawRectOnImage(accumulatedDetections, outCIImage) else {
+                                print("Failed to draw detections")
+                                return
+                            }
                             let presentationTime = CMSampleBufferGetOutputPresentationTimeStamp(buffer)
                             var pixelBufferOut: CVPixelBuffer?
                             CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, pixelBufferAdaptor.pixelBufferPool!, &pixelBufferOut)
-                            self.ciContext.render(outCIImage, to: pixelBufferOut!)
+                            self.ciContext.render(drawnImage, to: pixelBufferOut!)
                             pixelBufferAdaptor.append(pixelBufferOut!, withPresentationTime: presentationTime)
-                            
-                            //                        if frame % 100 == 0 {
-                            //                            print("\(frame) / \(totalFrame) frames were processed..")
-                            //                        }
-                        } else {
-                            if frame < 5 {
-                                frame += 1
-                            } else {
-                                frame = 0
-                            }
                         }
+                        frame += 1
                     } else {
                         writerVideoInput.markAsFinished()
                         DispatchQueue.main.async {

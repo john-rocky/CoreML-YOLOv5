@@ -1,0 +1,24 @@
+{
+    "fileFormatVersion": "1.0.0",
+    "itemInfoEntries": {
+        "2F8CB392-79E6-4D05-9B15-8E92F9D10B2C": {
+            "author": "com.apple.CoreML",
+            "description": "External Metadata Overlay",
+            "name": "Metadata.json",
+            "path": "com.apple.CoreML/Metadata.json"
+        },
+        "3EF512E6-3A0F-4C7A-BCD3-8D4A2F574813": {
+            "author": "com.apple.CoreML",
+            "description": "CoreML Model Specification",
+            "name": "GolfBall2.mlmodel",
+            "path": "com.apple.CoreML/GolfBall2.mlmodel"
+        },
+        "E98CAEDE-699B-4FE2-B9AA-9CE81DF30B11": {
+            "author": "com.apple.CoreML",
+            "description": "External FeatureDescription Overlay",
+            "name": "FeatureDescriptions.json",
+            "path": "com.apple.CoreML/FeatureDescriptions.json"
+        }
+    },
+    "rootModelIdentifier": "3EF512E6-3A0F-4C7A-BCD3-8D4A2F574813"
+}
